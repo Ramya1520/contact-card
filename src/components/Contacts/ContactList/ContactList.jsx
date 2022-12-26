@@ -12,14 +12,13 @@ let ContactList=()=>{
                                         <Link to={'/contacts/add'} className="btn btn-primary ms-2" >
                                             <i className='fa fa-plus-circle me-2'/>New</Link>
                                     </p>
-                                    <p className="fst-italic">Contact Book</p>
                                 </div>
                             </div>
                                 <div className="col-md-6">
                                     <form className='row'>
 
                                         <div className='col'>
-                                            <div class="mb-2">
+                                            <div className="mb-2">
                                                 <input type="text" className='form-control' placeholder="Search Name"/>
                                             </div>
                                         </div>

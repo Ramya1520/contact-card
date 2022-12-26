@@ -7,7 +7,7 @@ let Addcontact=()=>{
                     <div className='container'>
                         <div className='row'>
                             <div className='col'>
-                                <p className="fw-bold">create contact</p>
+                                <p className="fw-bold ">create contact</p>
                                 <p className='fst-italic'>create new contact</p>
                             </div>
                         </div>

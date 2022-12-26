@@ -8,10 +8,9 @@ let EditContact=()=>{
                 <div className='row'>
                     <div className='col'>
                         <p className="fw-bold">Edit Contact</p>
-                        {/* <p className='fst-italic'>Edit Contact</p> */}
                     </div>
                 </div>
-                <div className='row'>
+                <div className='row align-items-center'>
                     <div className='col-md-4'>
                         <form>
                             <div className='mb-2'>
@@ -43,6 +42,11 @@ let EditContact=()=>{
                             </div>
                         </form>
                     </div>
+                    <div className='col-md-2'>
+                            <img src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" alt="" className='img-fluid'></img>
+                    </div>
+
+                    
                 </div>
 
             </div>
