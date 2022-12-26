@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 let ContactList=()=>{
     return(
              <React.Fragment>
-               <section className="contact-search p-3">
+               <section className="container contact-search p-3">
                     <div className="Container">
                         <div className="grid">
                             <div className="row">
                                 <div className="col">
-                                    <p className="h3 fw-bold">Contact manager
+                                    <p className="container h3 fw-bold">Contact manager
                                         <Link to={'/contacts/add'} className="btn btn-primary ms-2" >
                                             <i className='fa fa-plus-circle me-2'/>New</Link>
                                     </p>
