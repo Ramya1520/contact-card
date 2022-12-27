@@ -41,7 +41,7 @@ let ContactList=()=>{
                             <div className='col-md-6'>
                                 <div className='card'>
                                     <div className='card-body'>
-                                        <div className="row align-items-center d-flex justify-content-around">
+                                        <div className="Frow align-items-center d-flex justify-content-around">
                                             
                                         <div className='col-md-4'>
                                             <img src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" alt="" className='img-fluid'></img>
@@ -51,15 +51,15 @@ let ContactList=()=>{
                                             <ul className='list-group'>
 
                                                 <li className='list-group-item listgroup-item-action'>
-                                                    Name:<span className='fw-bold'>Ramya</span>
+                                                    Name:<span className='fw-bold'></span>
                                                 </li>
 
                                                 <li className='list-group-item listgroup-item-action'>
-                                                    Mobile:<span className='fw-bold'>89998889988</span>
+                                                    Mobile:<span className='fw-bold'></span>
                                                 </li>
 
                                                 <li className='list-group-item listgroup-item-action'>
-                                                    Email:<span className='fw-bold'>Ramya123@gmail.com</span>
+                                                    Email:<span className='fw-bold'></span>
                                                 </li>
                                             </ul>
                                       </div>
@@ -82,8 +82,8 @@ let ContactList=()=>{
                             </div>
                         </div>
                     </div>
-
                </section>
+
                 </React.Fragment>
     )
 };
