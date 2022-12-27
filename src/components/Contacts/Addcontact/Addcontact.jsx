@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import{Link} from 'react-router-dom';
 import { useState } from 'react';
+import { ContactContext } from '../../../context/ContactContext';
+
+
 const Addcontact=()=>{
     const [listVal,setListVal]=useState({
         name:'',
@@ -10,12 +13,12 @@ const Addcontact=()=>{
         company:'',
         title:''
     })
-    const[list,setList]=useState([])   
+    const {list, setList} = useContext(ContactContext)  
     const Add=()=>{
         
         console.log("lv",listVal)
         setList([...list,listVal])
-        console.log("list:",list)
+        console.log("list1:",list)
         setListVal({name:"",mobile:"",photourl:"",email:"",company:"",title:""})
     }
     return(

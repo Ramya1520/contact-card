@@ -1,8 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import {ContactContext} from '../../../context/ContactContext';
+
+
 let ContactList=()=>{
+    const contact = useContext(ContactContext)
+
+    // console.log("contact", contact.list)
+   
     return(
              <React.Fragment>
+
                <section className="container contact-search p-3">
                     <div className="Container">
                         <div className="grid">
@@ -83,7 +92,7 @@ let ContactList=()=>{
                         </div>
                     </div>
                </section>
-
+            
                 </React.Fragment>
     )
 };
