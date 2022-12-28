@@ -6,11 +6,14 @@ import { ContactContext } from '../../../context/ContactContext';
 let ContactList = () => {
     const contact = useContext(ContactContext)
     console.log("contact", contact.list)
-    const navigate = useNavigate()
-    const view = (item) => {
-        console.log("in view function")
-        navigate('/contacts/list/view', { state: item })
-    }
+const navigate=useNavigate()
+const view  =(item,id)=>{
+    console.log("in view function")
+    contact.setList({...contact.list,index:id})
+    
+navigate('/contacts/list/view')
+}
+
     return (
         <React.Fragment>
             {/* <h2>{contactId}</h2> */}
@@ -49,7 +52,6 @@ let ContactList = () => {
             <section className='contact-list'>
                 {
                     contact.list.map((element, index) => (
-
                         <div className='container'>
                             <div className='row'>
                                 <div className='col-md-6'>
@@ -58,7 +60,7 @@ let ContactList = () => {
                                             <div className="Frow align-items-center d-flex justify-content-around">
 
                                                 <div className='col-md-2'>
-                                                    <img src={element.photourl} alt="" className='img-fluid'></img>
+                                                    <img src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" alt="" className='img-fluid'></img>
                                                 </div>
                                                 <div className='col-md-7'>
                                                     <ul className='list-group'>
@@ -79,10 +81,10 @@ let ContactList = () => {
 
                                                 <div className='col-md-1 d-flex flex-column align-items-center'>
 
-                                                    {/* <Link to={`/contacts/view/:${element.mobile}`} className="btn btn-warning my-1">
+                                                    {/* <Link to={'/contacts/list/view:contactId'} className="btn btn-warning my-1">
                                                         <i className='fa fa-eye' />
                                                     </Link> */}
-                                                    <button onClick={() => { view(element) }} type="button"><i className='fa fa-eye' /></button>
+                                                    <button onClick={()=>{view(element,index)}} type="button"><i className='fa fa-eye' /></button>
 
                                                     <Link to={'/contacts/edit/:contactId'} className="btn btn-primary my-1">
                                                         <i className='fa fa-pen' />
@@ -101,12 +103,10 @@ let ContactList = () => {
                             </div>
 
                         </div>
-                        // }
-                        // }
                     ))
                 }
             </section>
-
+            
         </React.Fragment>
     )
 };

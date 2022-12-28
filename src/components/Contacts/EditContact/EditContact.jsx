@@ -2,8 +2,7 @@ import React from 'react';
 import{Link,useLocation} from 'react-router-dom';
 let EditContact=()=>{
     const location = useLocation()
-
-  
+    
     return(
         <React.Fragment>
         <section className='add-contact p-3'>

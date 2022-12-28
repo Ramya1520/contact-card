@@ -11,15 +11,14 @@ const Addcontact=()=>{
         photourl:'',
         email:'',
         company:'',
-        title:''
+        title:'',
+        id:null
     })
     const {list, setList} = useContext(ContactContext)  
     const Add=()=>{
         
         console.log("lv",listVal)
-        if(listVal.mobile){
         setList([...list,listVal])
-        }
         console.log("list1:",list)
         setListVal({name:"",mobile:"",photourl:"",email:"",company:"",title:""})
     }
