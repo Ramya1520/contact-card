@@ -17,7 +17,9 @@ const Addcontact=()=>{
     const Add=()=>{
         
         console.log("lv",listVal)
+        if(listVal.mobile){
         setList([...list,listVal])
+        }
         console.log("list1:",list)
         setListVal({name:"",mobile:"",photourl:"",email:"",company:"",title:""})
     }

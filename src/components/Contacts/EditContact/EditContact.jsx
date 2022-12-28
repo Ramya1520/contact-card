@@ -1,6 +1,9 @@
 import React from 'react';
-import{Link} from 'react-router-dom';
+import{Link,useLocation} from 'react-router-dom';
 let EditContact=()=>{
+    const location = useLocation()
+
+  
     return(
         <React.Fragment>
         <section className='add-contact p-3'>
@@ -14,7 +17,7 @@ let EditContact=()=>{
                     <div className='col-md-4'>
                         <form>
                             <div className='mb-2'>
-                                <input type="text"  className='form-control' placeholder='Name'></input>
+                                <input type="text"  className='form-control' placeholder='Name'>{location.state.name}</input>
                             </div>
                             <div className='mb-2'>
                                 <input type="text" className='form-control'  placeholder='Photo Url'></input>
