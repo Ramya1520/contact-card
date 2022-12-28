@@ -1,4 +1,3 @@
-
 import './App.css';
 import React, { useState } from 'react';
 import { Routes,Route, Navigate } from 'react-router-dom';
@@ -19,7 +18,7 @@ let App=()=> {
         <Route path={'/'} element={<Navigate to={'/contacts/list'}/>}/>
         <Route path={'/contacts/list'} element={<ContactList/>}/>
         <Route path={'/contacts/add'} element={<Addcontact/>}/>
-        <Route path={'/contacts/view/:contactId'} element={<ViewContact/>}/>
+        <Route path={'/contacts/list/view'} element={<ViewContact/>}/>
         <Route path={'/contacts/edit/:contactId'} element={<EditContact/>}/>
       </Routes>
       </ContactProvider>

@@ -41,7 +41,7 @@ const Addcontact=()=>{
                                         <input type="text" value={listVal.photourl} onChange={((e)=>setListVal({...listVal,photourl:e.target.value}))} className='form-control'  placeholder='Photo Url'></input>
                                     </div>
                                     <div className='mb-2'>
-                                        <input type="number" value={listVal.mobile} onChange={((e)=>setListVal({...listVal,mobile:e.target.value}))} className='form-control' placeholder='Mobile'></input>
+                                        <input type="text" value={listVal.mobile} onChange={((e)=>setListVal({...listVal,mobile:e.target.value}))} className='form-control' placeholder='Mobile'></input>
                                     </div>
                                     <div className='mb-2'>
                                         <input type="text" value={listVal.email} onChange={((e)=>setListVal({...listVal,email:e.target.value}))} className='form-control' placeholder='Email'></input>

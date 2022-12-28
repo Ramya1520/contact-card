@@ -6,8 +6,7 @@ const ContactProvider = ({children}) => {
     console.log(list,"lll");    
     
     return <ContactContext.Provider value={{list,setList}}>
-    {children}
-
+        {children}
     </ContactContext.Provider>
 }
 
