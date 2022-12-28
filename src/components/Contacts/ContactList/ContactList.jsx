@@ -6,11 +6,11 @@ import { ContactContext } from '../../../context/ContactContext';
 let ContactList = () => {
     const contact = useContext(ContactContext)
     console.log("contact", contact.list)
-const navigate=useNavigate()
-const view  =(item)=>{
-    console.log("in view function")
-navigate('/contacts/list/view',{state:item})
-}
+    const navigate = useNavigate()
+    const view = (item) => {
+        console.log("in view function")
+        navigate('/contacts/list/view', { state: item })
+    }
     return (
         <React.Fragment>
             {/* <h2>{contactId}</h2> */}
@@ -48,11 +48,8 @@ navigate('/contacts/list/view',{state:item})
 
             <section className='contact-list'>
                 {
-                  
                     contact.list.map((element, index) => (
-                        
-                        
-                    
+
                         <div className='container'>
                             <div className='row'>
                                 <div className='col-md-6'>
@@ -85,7 +82,7 @@ navigate('/contacts/list/view',{state:item})
                                                     {/* <Link to={`/contacts/view/:${element.mobile}`} className="btn btn-warning my-1">
                                                         <i className='fa fa-eye' />
                                                     </Link> */}
-                                                    <button onClick={()=>{view(element)}}  type="button"><i className='fa fa-eye' /></button>
+                                                    <button onClick={() => { view(element) }} type="button"><i className='fa fa-eye' /></button>
 
                                                     <Link to={'/contacts/edit/:contactId'} className="btn btn-primary my-1">
                                                         <i className='fa fa-pen' />
@@ -104,12 +101,12 @@ navigate('/contacts/list/view',{state:item})
                             </div>
 
                         </div>
-                                                // }
-                                                // }
+                        // }
+                        // }
                     ))
                 }
             </section>
-            
+
         </React.Fragment>
     )
 };
