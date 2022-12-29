@@ -11,8 +11,8 @@ const Addcontact=()=>{
         photourl:'',
         email:'',
         company:'',
-        title:'',
-        id:null
+        title:''
+        
     })
     const {list, setList} = useContext(ContactContext)  
     const Add=()=>{

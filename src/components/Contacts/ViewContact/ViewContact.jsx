@@ -3,13 +3,24 @@ import { Link, useLocation, } from 'react-router-dom';
 import'../../../App.css'
 import { ContactContext } from '../../../context/ContactContext';
 const ViewContact=()=>{     
-//    const location =useLocation()
-//    console.log(location.state)
+   const location =useLocation()
+   console.log(location)
+
+
     const contact=useContext(ContactContext)
-const index=contact.list.index;
+    
+const index=location.state.id;
+
+
+console.log("same view",index)
+
 const viewlist =contact.list[index]
+console.log("viewlist",viewlist)
+
+
     return(
              <>
+            
                 {console.log(viewlist)}
                 <section className='view-contacti-intro p-3'>
                     <div className='container'>
@@ -36,15 +47,15 @@ const viewlist =contact.list[index]
                                             <ul className='list-group col-md-4 d-flex flex-column  '>
 
                                                 <li className='list-group-item listgroup-item-action'>
-                                                    Name:<span className='fw-bold'>{viewlist.name}</span>
+                                                    Name:<span className='fw-bold'>{viewlist?.name}</span>
                                                 </li>
 
                                                 <li className='list-group-item listgroup-item-action'>
-                                                    Mobile:<span className='fw-bold'>{viewlist.mobile}</span>
+                                                    Mobile:<span className='fw-bold'>{viewlist?.mobile}</span>
                                                 </li>
 
                                                 <li className='list-group-item listgroup-item-action'>
-                                                    Email:<span className='fw-bold'>{viewlist.email}</span>
+                                                    Email:<span className='fw-bold'>{viewlist?.email}</span>
                                                 </li>
                                             </ul>
                                       </div>

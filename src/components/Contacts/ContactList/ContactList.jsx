@@ -7,11 +7,13 @@ let ContactList = () => {
     const contact = useContext(ContactContext)
     console.log("contact", contact.list)
 const navigate=useNavigate()
-const view  =(item,id)=>{
+
+const view  =(item,index)=>{
     console.log("in view function")
-    contact.setList({...contact.list,index:id})
+   console.log(index)
     
-navigate('/contacts/list/view')
+navigate('/contacts/list/view', {state:{id:index}})
+
 }
 
     return (
@@ -48,11 +50,20 @@ navigate('/contacts/list/view')
                     </div>
                 </div>
             </section>
-
+            {console.log(contact.list,"same contact")}
             <section className='contact-list'>
                 {
-                    contact.list.map((element, index) => (
+               
+                    contact?.list?.map((element, index) => {
+                        console.log(element,"out")
+if(element != "index")
+{
+    console.log(element,"in")
+
+                    return(
                         <div className='container'>
+                            
+
                             <div className='row'>
                                 <div className='col-md-6'>
                                     <div className='card'>
@@ -66,15 +77,15 @@ navigate('/contacts/list/view')
                                                     <ul className='list-group'>
 
                                                         <li className='list-group-item listgroup-item-action'>
-                                                            Name:<span className='fw-bold'>{element.name}</span>
+                                                            Name:<span className='fw-bold'>{element?.name}</span>
                                                         </li>
 
                                                         <li className='list-group-item listgroup-item-action'>
-                                                            Mobile:<span className='fw-bold'>{element.mobile}</span>
+                                                            Mobile:<span className='fw-bold'>{element?.mobile}</span>
                                                         </li>
 
                                                         <li className='list-group-item listgroup-item-action'>
-                                                            Email:<span className='fw-bold'>{element.email}</span>
+                                                            Email:<span className='fw-bold'>{element?.email}</span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -102,8 +113,13 @@ navigate('/contacts/list/view')
                                 </div>
                             </div>
 
+                            
                         </div>
-                    ))
+                        )
+                    }
+
+                    }
+                    )
                 }
             </section>
             
