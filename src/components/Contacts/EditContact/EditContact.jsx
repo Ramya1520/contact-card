@@ -16,7 +16,7 @@ let EditContact=()=>{
                     <div className='col-md-4'>
                         <form>
                             <div className='mb-2'>
-                                <input type="text"  className='form-control' placeholder='Name'>{location.state.name}</input>
+                                <input type="text"  className='form-control' placeholder='Name'></input>
                             </div>
                             <div className='mb-2'>
                                 <input type="text" className='form-control'  placeholder='Photo Url'></input>
@@ -46,11 +46,8 @@ let EditContact=()=>{
                     </div>
                     <div className='col-md-2'>
                             <img src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" alt="" className='img-fluid'></img>
-                    </div>
-
-                    
+                    </div>  
                 </div>
-
             </div>
 
         </section>
