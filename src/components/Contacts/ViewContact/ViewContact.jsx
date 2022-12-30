@@ -4,12 +4,13 @@ import '../../../App.css'
 import { ContactContext } from '../../../context/ContactContext';
 const ViewContact = () => {
     const location = useLocation()
-    console.log(location)
+
+    console.log("location of view", location)
     const contact = useContext(ContactContext)
+
     const index = location.state.id;
-    console.log("same view", index)
     const viewlist = contact.list[index]
-    console.log("viewlist", viewlist)
+
     return (
         <>
             {console.log(viewlist)}

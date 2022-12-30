@@ -1,22 +1,37 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
 
 let ContactList = () => {
+
     const contact = useContext(ContactContext)
+    console.log("update2", contact.updateState)
     console.log("contact", contact.list)
+
     const navigate = useNavigate()
+
 
     const view = (item, index) => {
         console.log("in view function")
         console.log(index)
-
         navigate('/contacts/list/view', { state: { id: index } })
     }
+
+    const edit = (item, index) => {
+        navigate('/contacts/edit/:contactId', { state: { id: index } })
+    }
+
+    function Delete(mobile) {
+        console.log("mobile", mobile)
+        const newList = contact.list.filter((li) => (li.mobile !== mobile))
+        console.log("newlist", newList)
+        contact.setList(newList)
+    }
+
     return (
         <React.Fragment>
-            {/* <h2>{contactId}</h2> */}
+
             <section className="container contact-search p-3">
                 <div className="Container">
                     <div className="grid">
@@ -53,7 +68,7 @@ let ContactList = () => {
                 {
                     contact?.list?.map((element, index) => {
 
-                        if (element != "index") {
+                        if (element !== "index") {
                             return (
                                 <div className='container'>
                                     <div className='row'>
@@ -84,16 +99,13 @@ let ContactList = () => {
 
                                                         <div className='col-md-1 d-flex flex-column align-items-center'>
 
-                                                            {/* <Link to={'/contacts/list/view:contactId'} className="btn btn-warning my-1">
-                                                        <i className='fa fa-eye' />
-                                                    </Link> */}
-                                                            <button onClick={() => { view(element, index) }} type="button"><i className='fa fa-eye' /></button>
 
-                                                            <Link to={'/contacts/edit/:contactId'} className="btn btn-primary my-1">
-                                                                <i className='fa fa-pen' />
-                                                            </Link>
+                                                            <button type="button" className="btn btn-primary my-1" onClick={() => { view(element, index) }}><i className="fa fa-eye my-1" /></button>
 
-                                                            <button className="btn btn-danger my-1">
+                                                            <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element, index) }} ><i className="fa fa-pen my-1" /></button>
+
+
+                                                            <button className="btn btn-danger my-1" onClick={() => Delete(element.mobile)}>
                                                                 <i className='fa fa-trash' />
                                                             </button>
                                                         </div>
