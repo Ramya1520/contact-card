@@ -31,29 +31,28 @@ const Addcontact = () => {
                     <div className='row'>
                         <div className='col'>
                             <p className="fw-bold ">create contact</p>
-                            <p className='fst-italic'>create new contact</p>
                         </div>
                     </div>
                     <div className='row'>
                         <div className='col-md-4'>
                             <form>
                                 <div className='mb-2'>
-                                    <input type="text" value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} className='form-control' placeholder='Name'></input>
+                                    <input type="text"  value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} className='form-control fw-bold ' placeholder='Name'></input>
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="text" value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} className='form-control' placeholder='Photo Url'></input>
+                                    <input type="text" value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} className='form-control fw-bold' placeholder='Photo Url'></input>
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="number" value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} className='form-control' placeholder='Mobile'></input>
+                                    <input type="number" value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} className='form-control fw-bold' placeholder='Mobile'></input>
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="text" value={listVal.email} onChange={((e) => setListVal({ ...listVal, email: e.target.value }))} className='form-control' placeholder='Email'></input>
+                                    <input type="text" value={listVal.email} onChange={((e) => setListVal({ ...listVal, email: e.target.value }))} className='form-control fw-bold' placeholder='Email'></input>
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="text" value={listVal.company} onChange={((e) => setListVal({ ...listVal, company: e.target.value }))} className='form-control' placeholder='Company'></input>
+                                    <input type="text" value={listVal.company} onChange={((e) => setListVal({ ...listVal, company: e.target.value }))} className='form-control fw-bold' placeholder='Company'></input>
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="text" value={listVal.title} onChange={((e) => setListVal({ ...listVal, title: e.target.value }))} className='form-control' placeholder='Title'></input>
+                                    <input type="text" value={listVal.title} onChange={((e) => setListVal({ ...listVal, title: e.target.value }))} className='form-control fw-bold' placeholder='Title'></input>
                                 </div>
                                 <div>
                                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
 
@@ -8,9 +8,7 @@ let ContactList = () => {
     const contact = useContext(ContactContext)
     console.log("update2", contact.updateState)
     console.log("contact", contact.list)
-
     const navigate = useNavigate()
-
 
     const view = (item, index) => {
         console.log("in view function")
@@ -27,6 +25,17 @@ let ContactList = () => {
         const newList = contact.list.filter((li) => (li.mobile !== mobile))
         console.log("newlist", newList)
         contact.setList(newList)
+    }
+    console.log("before", contact.list)
+    const filterNames = e => {
+        console.log('******')
+        const search = e.target.value.toLowerCase()
+        console.log(search, "search")
+
+        const filteredNames = contact.list.filter((con) => con.name.toLowerCase().includes(search))
+        console.log("after", contact.list)
+        console.log(filteredNames, "filteredNames")
+        contact.setList(filteredNames)
     }
 
     return (
@@ -49,13 +58,13 @@ let ContactList = () => {
                             <form className='row'>
                                 <div className='col'>
                                     <div className="mb-2">
-                                        <input type="text" className='form-control' placeholder="Search Name" />
+                                        <input type="text" className='form-control btn btn-outline-dark my-2' onChange={(e) => filterNames(e)} placeholder="Search Name" />
                                     </div>
                                 </div>
 
                                 <div className='col'>
                                     <div className='mb-2'>
-                                        <input type="submit" className="btn btn-outline-dark" value='Search'></input>
+                                        <input type="button" className="btn btn-success my-2" value='Search'></input>
                                     </div>
                                 </div>
                             </form>
@@ -72,7 +81,7 @@ let ContactList = () => {
                             return (
                                 <div className='container'>
                                     <div className='row'>
-                                        <div className='col-md-6'>
+                                        <div className='col-md-5'>
                                             <div className='card'>
                                                 <div className='card-body'>
                                                     <div className="Frow align-items-center d-flex justify-content-around">
@@ -83,16 +92,16 @@ let ContactList = () => {
                                                         <div className='col-md-7'>
                                                             <ul className='list-group'>
 
-                                                                <li className='list-group-item listgroup-item-action'>
-                                                                    Name:<span className='fw-bold'>{element?.name}</span>
+                                                                <li className='list-group-item listgroup-item-action fw-bolder'>
+                                                                    Name:<span className='fw-light'>{element?.name}</span>
                                                                 </li>
 
-                                                                <li className='list-group-item listgroup-item-action'>
-                                                                    Mobile:<span className='fw-bold'>{element?.mobile}</span>
+                                                                <li className='list-group-item listgroup-item-action fw-bolder'>
+                                                                    Mobile:<span className='fw-light'>{element?.mobile}</span>
                                                                 </li>
 
-                                                                <li className='list-group-item listgroup-item-action'>
-                                                                    Email:<span className='fw-bold'>{element?.email}</span>
+                                                                <li className='list-group-item listgroup-item-action fw-bolder'>
+                                                                    Email:<span className='fw-light'>{element?.email}</span>
                                                                 </li>
                                                             </ul>
                                                         </div>

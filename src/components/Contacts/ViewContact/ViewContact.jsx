@@ -18,7 +18,7 @@ const ViewContact = () => {
                 <div className='container'>
                     <div className="row">
                         <div className='col'>
-                            <p className="h3 text warning fw-bold">View contact</p>
+                            <p className="h3 text warning fw-bold">Views contact</p>
                         </div>
                     </div>
                 </div>
@@ -46,6 +46,14 @@ const ViewContact = () => {
 
                         <li className='list-group-item listgroup-item-action'>
                             Email:<span className='fw-bold'>{viewlist?.email}</span>
+                        </li>
+
+                        <li className='list-group-item listgroup-item-action'>
+                            Company:<span className='fw-bold'>{viewlist?.company}</span>
+                        </li>
+
+                        <li className='list-group-item listgroup-item-action'>
+                            Title:<span className='fw-bold'>{viewlist?.title}</span>
                         </li>
                     </ul>
                 </div>
