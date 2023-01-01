@@ -18,6 +18,7 @@ let EditContact = () => {
     const [updateState, setUpdateState] = useState(editlist);
 
 
+
     const update = (updateState) => {
         console.log("editlsit", updateState)
         contact.list.push(updateState)
