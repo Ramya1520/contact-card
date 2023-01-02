@@ -30,8 +30,6 @@ let EditContact = () => {
         ]);
     }
 
-    const navigate = useNavigate()
-
     console.log("edit", index)
     console.log(location)
     console.log("editlist", editlist)
@@ -74,8 +72,8 @@ let EditContact = () => {
 
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="button" className='btn btn-primary ms-2' value="update" onClick={() => { update(updateState) }}></input>
-                                    <Link to={'/contacts/list'} className="btn btn-danger ms-2">Cancel</Link>
+                                    <Link to={'/contacts/list'} type="button" className='btn btn-primary ms-2' value="update" onClick={() => { update(updateState) }}>Update</Link>
+                                    {/* <Link to={'/contacts/list'} className="btn btn-danger ms-2">Cancel</Link> */}
                                 </div>
                             </form>
                         </div>

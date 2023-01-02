@@ -9,7 +9,6 @@ let ContactList = (e) => {
 
     const [searchbar, setSearchbar] = useState(contact.list)
     const navigate = useNavigate()
-    console.log(searchbar, "searchbar")
 
     const view = (item, index) => {
         navigate('/contacts/list/view', { state: { id: index } })
@@ -21,9 +20,11 @@ let ContactList = (e) => {
 
     function Delete(mobile) {
         const newList = contact.list.filter((li) => (li.mobile !== mobile))
-        contact.setList(newList)
+        console.log("newlist:",newList)
+        contact.list=newList
+        console.log("contact.list:",contact.list)
         setSearchbar(contact.list)
-        console.log(searchbar, "delete function")
+        console.log("delete function",searchbar)
 
         console.log("Searchbar:", searchbar)
         console.log("Contact.list", contact.list)
@@ -105,7 +106,7 @@ let ContactList = (e) => {
                                                                 <div className='col-md-1 d-flex flex-column align-items-center'>
                                                                     <button type="button" className="btn btn-primary my-1" onClick={() => { view(element, index) }}><i className="fa fa-eye my-1" /></button>
                                                                     <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element, index) }} ><i className="fa fa-pen my-1" /></button>
-                                                                    <button className="btn btn-danger my-1" onClick={() => Delete(element.mobile)}>
+                                                                    <button className="btn btn-danger my-1" onClick={() => {Delete(element.mobile)}}>
                                                                         <i className='fa fa-trash' /></button>
                                                                 </div>
                                                             </div>
@@ -116,8 +117,6 @@ let ContactList = (e) => {
                                         </div>
                                     )
                                 }
-
-
                                 )
                             }
                         </div>
