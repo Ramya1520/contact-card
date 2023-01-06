@@ -1,29 +1,28 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
+import { collection, doc, getDocs, deleteDoc, addDoc } from 'firebase/firestore';
+
+import { useEffect, useState } from 'react';
+import { db } from '../../../firebase';
+export const useCollectionRef = collection(db, 'list');
 
 
 const Addcontact = () => {
-    const [listVal, setListVal] = useState({
-        name: '',
-        mobile: '',
-        photourl: '',
-        email: '',
-        company: '',
-        title: ''
-
-    })
+    const [listVal, setListVal] = useState([])
     const { list, setList } = useContext(ContactContext)
-    const Add = () => {
 
-        // console.log("lv", listVal)
-        if (listVal.mobile) {
-            setList([...list, listVal])
-        }
-        // console.log("list1:", list)
-        setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+   
+    let Add = async () => {
+        // let data = await addDoc(useCollectionRef, listVal)
+        // console.log("data", data)
+        // if (listVal.mobile ) {
+        // console.log("listVal", listVal)
+        // setList([...list, listVal])
+        // }
+        // setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
     }
+   
     return (
         <React.Fragment>
             <section className='add-contact p-3'>
@@ -37,7 +36,7 @@ const Addcontact = () => {
                         <div className='col-md-4'>
                             <form>
                                 <div className='mb-2'>
-                                    <input type="text"  value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} className='form-control fw-bold ' placeholder='Name'></input>
+                                    <input type="text" value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} className='form-control fw-bold ' placeholder='Name'></input>
                                 </div>
                                 <div className='mb-2'>
                                     <input type="text" value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} className='form-control fw-bold' placeholder='Photo Url'></input>

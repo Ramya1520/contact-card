@@ -5,6 +5,7 @@ const ContactProvider = ({children}) => {
     const [list, setList] = useState([])   
     const [updateState, setUpdateState] = useState([]);   
     
+    
     return <ContactContext.Provider value={{list,setList,updateState,setUpdateState}}>
         {children}
     </ContactContext.Provider>

@@ -1,33 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
 
-let ContactList = (e) => {
+import { collection, doc,deleteDoc,getDocs } from 'firebase/firestore';
+
+
+import { db } from '../../../firebase';
+
+let ContactList = () => {
 
     const contact = useContext(ContactContext)
-
+    const { list, setList } = useContext(ContactContext)
     const [searchbar, setSearchbar] = useState(contact.list)
+    const useCollectionRef = collection(db, 'list');
     const navigate = useNavigate()
+    console.log(list,"ch")
+   
+
+    
 
     const view = (item, index) => {
         navigate('/contacts/list/view', { state: { id: index } })
     }
 
     const edit = (item, index) => {
+
         navigate('/contacts/edit/:contactId', { state: { id: index } })
+        
+        
     }
 
-    function Delete(mobile) {
-        const newList = contact.list.filter((li) => (li.mobile !== mobile))
-        console.log("newlist:",newList)
-        contact.list=newList
-        console.log("contact.list:",contact.list)
-        setSearchbar(contact.list)
-        console.log("delete function",searchbar)
-
-        console.log("Searchbar:", searchbar)
-        console.log("Contact.list", contact.list)
+   
+ const Delete= async(listId)=>{
+         const listDoc=doc(db,'list',listId)
+        await deleteDoc(listDoc)
+        console.log("*******")
+        // const newList = contact.list.filter((li) => (li.mobile !== mobile))
+        // contact.list=newList
+        // setSearchbar(contact.list)    
     }
 
     const filterNames = e => {
@@ -36,6 +47,23 @@ let ContactList = (e) => {
         console.log("after", searchbar)
         setSearchbar(filteredNames)
     }
+   
+
+    const getlist = async () => {
+        console.log("list", list);
+        const data = await getDocs(useCollectionRef)
+
+        setList((data.docs.map(doc => ({
+            ...doc.data(),
+            id: doc.id
+        })
+        )))};
+
+    useEffect(() => {
+        getlist()
+    });
+    console.log("ch",list)
+
 
     return (
         <React.Fragment>
@@ -94,7 +122,7 @@ let ContactList = (e) => {
                                                                         </li>
 
                                                                         <li className='list-group-item listgroup-item-action fw-bolder'>
-                                                                            Mobile:<span className='fw-light'>{element.mobile}</span>
+                                                                            Mobile:<span className='fw-light'>{element.mobile}</span> 
                                                                         </li>
 
                                                                         <li className='list-group-item listgroup-item-action fw-bolder'>
@@ -105,8 +133,8 @@ let ContactList = (e) => {
 
                                                                 <div className='col-md-1 d-flex flex-column align-items-center'>
                                                                     <button type="button" className="btn btn-primary my-1" onClick={() => { view(element, index) }}><i className="fa fa-eye my-1" /></button>
-                                                                    <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element, index) }} ><i className="fa fa-pen my-1" /></button>
-                                                                    <button className="btn btn-danger my-1" onClick={() => {Delete(element.mobile)}}>
+                                                                    <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element.id,index, element.mobile+1) }} ><i className="fa fa-pen my-1" /></button>
+                                                                    <button className="btn btn-danger my-1" onClick={() => {Delete(element.id)}}>
                                                                         <i className='fa fa-trash' /></button>
                                                                 </div>
                                                             </div>

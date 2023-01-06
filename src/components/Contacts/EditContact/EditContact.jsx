@@ -2,38 +2,58 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
+import { updateDoc } from 'firebase/firestore';
+import { collection, doc,deleteDoc, addDoc,getDocs } from 'firebase/firestore';
 
+
+import { db } from '../../../firebase';
 
 let EditContact = () => {
-
+    const { list, setList } = useContext(ContactContext)
     const location = useLocation()
-
-
     const contact = useContext(ContactContext)
-    console.log("contact1", contact.list)
-    console.log("contact22", contact.updateState)
-
     const index = location.state.id;
     const editlist = contact.list[index]
     const [updateState, setUpdateState] = useState(editlist);
+    console.log("updatestate",updateState)
+    const useCollectionRef = collection(db, 'list');
 
 
+    // const update = async(listId,updateState) => { 
+        // const listDoc=doc(db,'list',listId);
+        // const newlist=(updateState)
+        // await updateDoc(listDoc,newlist)
+        // contact.list.push(updateState)
+       
 
-    const update = (updateState) => {
-        console.log("editlsit", updateState)
-        contact.list.push(updateState)
-        console.log("contact after push,", contact.list)
+        // contact.setList([
+        //     ...contact.list.slice(0, index),
+        //     ...contact.list.slice(index + 1, contact.list.length)
+        // ]);
+    // // }
+    // const update1=async(userId,updateDetails)=>{}
+        
+        
+        
+        
+    const update =async (ak,listId) => { 
+            const listDoc=doc(db,'list',listId); 
+          
+            const newval={name:ak}
+          
+            console.log("*********")
+            await updateDoc(listDoc,newval)
+        
+   
+        // contact.setList([
+        //     ...contact.list.slice(0, index),
+        //     ...contact.list.slice(index + 1, contact.list.length)
 
-        contact.setList([
-            ...contact.list.slice(0, index),
-            ...contact.list.slice(index + 1, contact.list.length)
-        ]);
+        // ]);
+       
+
     }
-
-    console.log("edit", index)
-    console.log(location)
-    console.log("editlist", editlist)
-    console.log(contact.list[0].name, "hai")
+ 
 
     return (
         <React.Fragment>
