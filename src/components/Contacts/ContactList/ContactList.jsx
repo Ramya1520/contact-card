@@ -2,10 +2,7 @@ import React, { useState,useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
-
 import { collection, doc,deleteDoc,getDocs } from 'firebase/firestore';
-
-
 import { db } from '../../../firebase';
 
 let ContactList = () => {
@@ -16,29 +13,36 @@ let ContactList = () => {
     const useCollectionRef = collection(db, 'list');
     const navigate = useNavigate()
     console.log(list,"ch")
-   
-
     
+    const getlist = async () => {
+        const data = await getDocs(useCollectionRef)
+        setList((data.docs.map(doc => ({
+            ...doc.data(),
+            id: doc.id
+        })
+        )))
+        console.log("getlist", list);
+    };
 
+    console.log("ch",list)
+
+    useEffect(() => {
+        getlist()
+    },[(list.length)]);
+
+     
     const view = (item, index) => {
         navigate('/contacts/list/view', { state: { id: index } })
     }
 
     const edit = (item, index) => {
-
-        navigate('/contacts/edit/:contactId', { state: { id: index } })
-        
-        
+        navigate('/contacts/edit/:contactId', { state: { id: index } }) 
     }
 
-   
  const Delete= async(listId)=>{
          const listDoc=doc(db,'list',listId)
         await deleteDoc(listDoc)
-        console.log("*******")
-        // const newList = contact.list.filter((li) => (li.mobile !== mobile))
-        // contact.list=newList
-        // setSearchbar(contact.list)    
+        console.log("*******") 
     }
 
     const filterNames = e => {
@@ -49,21 +53,7 @@ let ContactList = () => {
     }
    
 
-    const getlist = async () => {
-        console.log("list", list);
-        const data = await getDocs(useCollectionRef)
-
-        setList((data.docs.map(doc => ({
-            ...doc.data(),
-            id: doc.id
-        })
-        )))};
-
-    useEffect(() => {
-        getlist()
-    });
-    console.log("ch",list)
-
+   
 
     return (
         <React.Fragment>

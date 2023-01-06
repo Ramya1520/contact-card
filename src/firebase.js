@@ -2,16 +2,18 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCPjGK35d_8TkAPGzIm9iTCL0mDcDQtKsM",
-  authDomain: "curd-operation-dd35f.firebaseapp.com",
-  projectId: "curd-operation-dd35f",
-  storageBucket: "curd-operation-dd35f.appspot.com",
-  messagingSenderId: "1087944742984",
-  appId: "1:1087944742984:web:2f27ef466835d938b8a07d",
-  measurementId: "G-Y82KE2EV0P"
+  apiKey: "AIzaSyDTXLiu8aL376pAYZ6lfHufpTCxR7k-Pa0",
+  authDomain: "contact-manager-6752d.firebaseapp.com",
+  projectId: "contact-manager-6752d",
+  storageBucket: "contact-manager-6752d.appspot.com",
+  messagingSenderId: "1066861790116",
+  appId: "1:1066861790116:web:edef90dbd896c12d3cb731"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 export const db =getFirestore(app)

@@ -14,13 +14,13 @@ const Addcontact = () => {
 
    
     let Add = async () => {
-        // let data = await addDoc(useCollectionRef, listVal)
-        // console.log("data", data)
-        // if (listVal.mobile ) {
-        // console.log("listVal", listVal)
-        // setList([...list, listVal])
-        // }
-        // setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+        let data = await addDoc(useCollectionRef, listVal)
+        console.log("data", data)
+        if (listVal.mobile ) {
+        console.log("listVal", listVal)
+        setList([...list, listVal])
+        }
+        setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
     }
    
     return (
