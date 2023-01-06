@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
-import { collection, doc, deleteDoc, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, doc, deleteDoc,onSnapshot } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
 let ContactList = () => {
@@ -36,7 +36,6 @@ let ContactList = () => {
     const Delete = async (listId) => {
         const listDoc = doc(db, 'list', listId)
         await deleteDoc(listDoc)
-        console.log("*******")
     }
 
     const filterNames = e => {
@@ -113,8 +112,8 @@ let ContactList = () => {
                                                                 </div>
 
                                                                 <div className='col-md-1 d-flex flex-column align-items-center'>
-                                                                    <button type="button" className="btn btn-primary my-1" onClick={() => { view(element, index) }}><i className="fa fa-eye my-1" /></button>
-                                                                    <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element.id, index, element.mobile + 1) }} ><i className="fa fa-pen my-1" /></button>
+                                                                    <button type="button" className="btn btn-primary my-1" onClick={() => { view(element.id, index) }}><i className="fa fa-eye my-1" /></button>
+                                                                    <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element.id, index) }} ><i className="fa fa-pen my-1" /></button>
                                                                     <button className="btn btn-danger my-1" onClick={() => { Delete(element.id) }}>
                                                                         <i className='fa fa-trash' /></button>
                                                                 </div>

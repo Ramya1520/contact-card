@@ -3,39 +3,31 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
 import { updateDoc } from 'firebase/firestore';
-import { collection, doc,deleteDoc, addDoc,getDocs } from 'firebase/firestore';
+import { collection, doc, deleteDoc, addDoc, getDocs } from 'firebase/firestore';
 
 
 import { db } from '../../../firebase';
 
 let EditContact = () => {
-    const { list, setList } = useContext(ContactContext)
     const location = useLocation()
     const contact = useContext(ContactContext)
     const index = location.state.id;
     const editlist = contact.list[index]
     const [updateState, setUpdateState] = useState(editlist);
-    console.log("updatestate",updateState)
+
     const useCollectionRef = collection(db, 'list');
 
-
-
-        
-        
-        
-        
-    const update =async (ak,listId) => { 
-            const listDoc=doc(db,'list',listId); 
-          
-            const newval={name:ak}
-          
-            console.log("*********")
-            await updateDoc(listDoc,newval)
-
-
+    const update = async (updateState) => {
+        await addDoc(useCollectionRef, updateState);
+        Delete(updateState.id)
     }
- 
 
+    const Delete = async (listId) => {
+        const listDoc = doc(db, 'list', listId)
+        console.log(listDoc, "Edit....................................")
+        await deleteDoc(listDoc)
+        console.log("*******")
+    }
     return (
         <React.Fragment>
             <section className='add-contact p-3'>

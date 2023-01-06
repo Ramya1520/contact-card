@@ -12,7 +12,6 @@ const Addcontact = () => {
     const [listVal, setListVal] = useState([])
     const { list, setList } = useContext(ContactContext)
 
-   
     let Add = async () => {
         let data = await addDoc(useCollectionRef, listVal)
         console.log("data", data)
