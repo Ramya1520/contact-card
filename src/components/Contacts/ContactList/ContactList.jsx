@@ -2,7 +2,7 @@ import React, { useState,useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
-import { collection, doc,deleteDoc,getDocs } from 'firebase/firestore';
+import { collection, doc,deleteDoc,getDocs, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
 let ContactList = () => {
@@ -12,22 +12,27 @@ let ContactList = () => {
     const [searchbar, setSearchbar] = useState(contact.list)
     const useCollectionRef = collection(db, 'list');
     const navigate = useNavigate()
-    console.log(list,"ch")
     
-    const getlist = async () => {
-        const data = await getDocs(useCollectionRef)
-        setList((data.docs.map(doc => ({
-            ...doc.data(),
-            id: doc.id
-        })
-        )))
-        console.log("getlist", list);
-    };
-
-    console.log("ch",list)
-
+    // const getlist = async () => {
+    //     const data = await getDocs(useCollectionRef)
+    //     setList((data.docs.map(doc => ({
+    //         ...doc.data(),
+    //         id: doc.id
+    //     })
+    //     )))
+    //     console.log("getlist", list);
+    // };
+    
     useEffect(() => {
-        getlist()
+        // getlist()
+        const snapShot= onSnapshot(useCollectionRef,(snapShotParam=>{
+            setList(snapShotParam.docs.map(doc=>({
+                ...doc.data(),
+                id:doc.id
+            })))
+            setSearchbar(list)
+        }))
+        return ()=>snapShot();
     },[(list.length)]);
 
      
