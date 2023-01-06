@@ -19,19 +19,7 @@ let EditContact = () => {
     const useCollectionRef = collection(db, 'list');
 
 
-    // const update = async(listId,updateState) => { 
-        // const listDoc=doc(db,'list',listId);
-        // const newlist=(updateState)
-        // await updateDoc(listDoc,newlist)
-        // contact.list.push(updateState)
-       
 
-        // contact.setList([
-        //     ...contact.list.slice(0, index),
-        //     ...contact.list.slice(index + 1, contact.list.length)
-        // ]);
-    // // }
-    // const update1=async(userId,updateDetails)=>{}
         
         
         
@@ -43,14 +31,7 @@ let EditContact = () => {
           
             console.log("*********")
             await updateDoc(listDoc,newval)
-        
-   
-        // contact.setList([
-        //     ...contact.list.slice(0, index),
-        //     ...contact.list.slice(index + 1, contact.list.length)
 
-        // ]);
-       
 
     }
  

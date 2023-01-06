@@ -1,8 +1,8 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
-import { collection, doc,deleteDoc,getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, doc, deleteDoc, getDocs, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
 let ContactList = () => {
@@ -12,42 +12,31 @@ let ContactList = () => {
     const [searchbar, setSearchbar] = useState(contact.list)
     const useCollectionRef = collection(db, 'list');
     const navigate = useNavigate()
-    
-    // const getlist = async () => {
-    //     const data = await getDocs(useCollectionRef)
-    //     setList((data.docs.map(doc => ({
-    //         ...doc.data(),
-    //         id: doc.id
-    //     })
-    //     )))
-    //     console.log("getlist", list);
-    // };
-    
+
     useEffect(() => {
-        // getlist()
-        const snapShot= onSnapshot(useCollectionRef,(snapShotParam=>{
-            setList(snapShotParam.docs.map(doc=>({
+
+        const snapShot = onSnapshot(useCollectionRef, (snapShotParam => {
+            setList(snapShotParam.docs.map(doc => ({
                 ...doc.data(),
-                id:doc.id
+                id: doc.id
             })))
             setSearchbar(list)
         }))
-        return ()=>snapShot();
-    },[(list.length)]);
+        return () => snapShot();
+    }, [(list.length)]);
 
-     
     const view = (item, index) => {
         navigate('/contacts/list/view', { state: { id: index } })
     }
 
     const edit = (item, index) => {
-        navigate('/contacts/edit/:contactId', { state: { id: index } }) 
+        navigate('/contacts/edit/:contactId', { state: { id: index } })
     }
 
- const Delete= async(listId)=>{
-         const listDoc=doc(db,'list',listId)
+    const Delete = async (listId) => {
+        const listDoc = doc(db, 'list', listId)
         await deleteDoc(listDoc)
-        console.log("*******") 
+        console.log("*******")
     }
 
     const filterNames = e => {
@@ -56,9 +45,6 @@ let ContactList = () => {
         console.log("after", searchbar)
         setSearchbar(filteredNames)
     }
-   
-
-   
 
     return (
         <React.Fragment>
@@ -117,7 +103,7 @@ let ContactList = () => {
                                                                         </li>
 
                                                                         <li className='list-group-item listgroup-item-action fw-bolder'>
-                                                                            Mobile:<span className='fw-light'>{element.mobile}</span> 
+                                                                            Mobile:<span className='fw-light'>{element.mobile}</span>
                                                                         </li>
 
                                                                         <li className='list-group-item listgroup-item-action fw-bolder'>
@@ -128,8 +114,8 @@ let ContactList = () => {
 
                                                                 <div className='col-md-1 d-flex flex-column align-items-center'>
                                                                     <button type="button" className="btn btn-primary my-1" onClick={() => { view(element, index) }}><i className="fa fa-eye my-1" /></button>
-                                                                    <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element.id,index, element.mobile+1) }} ><i className="fa fa-pen my-1" /></button>
-                                                                    <button className="btn btn-danger my-1" onClick={() => {Delete(element.id)}}>
+                                                                    <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element.id, index, element.mobile + 1) }} ><i className="fa fa-pen my-1" /></button>
+                                                                    <button className="btn btn-danger my-1" onClick={() => { Delete(element.id) }}>
                                                                         <i className='fa fa-trash' /></button>
                                                                 </div>
                                                             </div>
