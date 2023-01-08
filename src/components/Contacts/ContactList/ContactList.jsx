@@ -1,20 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
-import { collection, doc, deleteDoc,onSnapshot } from 'firebase/firestore';
+import { collection, doc, deleteDoc, onSnapshot, addDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
+import { useForm } from 'react-hook-form';
 
-let ContactList = () => {
-
+const ContactList = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm();
+    
     const contact = useContext(ContactContext)
     const { list, setList } = useContext(ContactContext)
+    const { updateState, setUpdateState } = useContext(ContactContext)
     const [searchbar, setSearchbar] = useState(contact.list)
     const useCollectionRef = collection(db, 'list');
-    const navigate = useNavigate()
+    const { listVal, setListVal } = useContext(ContactContext)
+
+
+    const edit = (age, index) => {
+        setUpdateState(contact.list[index])
+    }
+
+    const Update = async () => {
+        if (updateState.mobile) {
+            await addDoc(useCollectionRef, updateState);
+
+        }
+        setUpdateState({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+        Delete(updateState.id)
+    }
+    let Add = async () => {
+        let data = await addDoc(useCollectionRef, listVal)
+        console.log("data", data)
+        // if (listVal.mobile) {
+        console.log("listVal", listVal)
+        // setList([...list, listVal])
+        // }
+        setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+    }
+
+
+    const View = (age, index) => {
+        setUpdateState(contact.list[index])
+    }
+
+    const Delete = async (listId) => {
+        const listDoc = doc(db, 'list', listId)
+        await deleteDoc(listDoc)
+    }
 
     useEffect(() => {
-
         const snapShot = onSnapshot(useCollectionRef, (snapShotParam => {
             setList(snapShotParam.docs.map(doc => ({
                 ...doc.data(),
@@ -25,25 +64,17 @@ let ContactList = () => {
         return () => snapShot();
     }, [(list.length)]);
 
-    const view = (item, index) => {
-        navigate('/contacts/list/view', { state: { id: index } })
-    }
-
-    const edit = (item, index) => {
-        navigate('/contacts/edit/:contactId', { state: { id: index } })
-    }
-
-    const Delete = async (listId) => {
-        const listDoc = doc(db, 'list', listId)
-        await deleteDoc(listDoc)
-    }
-
     const filterNames = e => {
         const search = e.target.value.toLowerCase()
         const filteredNames = contact.list.filter(searchbar => searchbar.name.toLowerCase().includes(search))
-        console.log("after", searchbar)
+        console.log("after===========", searchbar)
         setSearchbar(filteredNames)
     }
+    const onSubmit =(data)=>{
+        console.log(data);
+    }
+
+
 
     return (
         <React.Fragment>
@@ -54,13 +85,138 @@ let ContactList = () => {
                         <div className="row">
                             <div className="col">
                                 <p className="container h3 fw-bold">Contact manager
-                                    <Link to={'/contacts/add'} className="btn btn-primary ms-2" >
+                                    <button className="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdropnew">
                                         <i className='fa fa-plus-circle me-2' />New
-                                    </Link>
+                                    </button>
                                 </p>
                             </div>
                         </div>
 
+{/* New contact */}
+                        <div className="modal fade" id="staticBackdropnew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="staticBackdropLabel">New Contact</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Name" name="name" value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Photo Url" name="photourl" value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} />
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Mobile" name="mobile"  value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Email" name="email"  value={listVal.email} onChange={((e) => setListVal({ ...listVal, email: e.target.value }))} />
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Company" name="company" value={listVal.company} onChange={((e) => setListVal({ ...listVal, company: e.target.value }))} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Title" name="title" value={listVal.title} onChange={((e) => setListVal({ ...listVal, title: e.target.value }))} />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-primary" onClick={() => { Add(listVal) }}>Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{/* //Edit page */}
+                        <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="staticBackdropLabel">Edit Contact</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Name" value={updateState.name} onChange={((e) => setUpdateState({ ...updateState, name: e.target.value }))} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Photo Url" value={updateState.photourl} onChange={((e) => setUpdateState({ ...updateState, photourl: e.target.value }))} />
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Mobile" value={updateState.mobile} onChange={((e) => setUpdateState({ ...updateState, mobile: e.target.value }))} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Email" value={updateState.email} onChange={((e) => setUpdateState({ ...updateState, email: e.target.value }))} />
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Company" value={updateState.company} onChange={((e) => setUpdateState({ ...updateState, company: e.target.value }))} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Title" value={updateState.title} onChange={((e) => setUpdateState({ ...updateState, title: e.target.value }))} />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-primary" onClick={() => { Update(updateState) }}>Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{/* //view page */}
+                        <div className="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="staticBackdropLabel">View Contact</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Name" value={updateState.name} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Photo Url" value={updateState.photourl} />
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Mobile" value={updateState.mobile} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Email" value={updateState.email} />
+                                                </div>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Company" value={updateState.company} />
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" placeholder="Title" value={updateState.title} />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div className="modal-footer">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="col-md-6">
                             <form className='row'>
                                 <div className='col'>
@@ -68,7 +224,6 @@ let ContactList = () => {
                                         <input type="type" className='form-control btn btn-outline-dark my-2' onChange={(e) => filterNames(e)} placeholder="Search Name" />
                                     </div>
                                 </div>
-
                                 <div className='col'>
                                 </div>
                             </form>
@@ -100,7 +255,7 @@ let ContactList = () => {
                                                                         <li className='list-group-item listgroup-item-action fw-bolder'>
                                                                             Name:<span className='fw-light'>{element.name}</span>
                                                                         </li>
-
+                                                                
                                                                         <li className='list-group-item listgroup-item-action fw-bolder'>
                                                                             Mobile:<span className='fw-light'>{element.mobile}</span>
                                                                         </li>
@@ -112,8 +267,9 @@ let ContactList = () => {
                                                                 </div>
 
                                                                 <div className='col-md-1 d-flex flex-column align-items-center'>
-                                                                    <button type="button" className="btn btn-primary my-1" onClick={() => { view(element.id, index) }}><i className="fa fa-eye my-1" /></button>
-                                                                    <button type="button" className="btn btn-dark my-1" onClick={() => { edit(element.id, index) }} ><i className="fa fa-pen my-1" /></button>
+                                                                    <button type="button" className="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#staticBackdrops" onClick={() => { View(element.id, index) }}><i className="fa fa-eye my-1" /></button>
+
+                                                                    <button type="button" className="btn btn-dark my-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => { edit(element.id, index) }} ><i className="fa fa-pen my-1" /></button>
                                                                     <button className="btn btn-danger my-1" onClick={() => { Delete(element.id) }}>
                                                                         <i className='fa fa-trash' /></button>
                                                                 </div>

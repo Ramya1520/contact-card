@@ -1,27 +1,27 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ContactContext } from '../../../context/ContactContext';
-import { collection, doc, getDocs, deleteDoc, addDoc } from 'firebase/firestore';
+import { collection,addDoc } from 'firebase/firestore';
 
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import { db } from '../../../firebase';
 export const useCollectionRef = collection(db, 'list');
 
 
 const Addcontact = () => {
-    const [listVal, setListVal] = useState([])
     const { list, setList } = useContext(ContactContext)
+     const { listVal, setListVal } = useContext(ContactContext)
 
     let Add = async () => {
-        let data = await addDoc(useCollectionRef, listVal)
-        console.log("data", data)
-        if (listVal.mobile ) {
-        console.log("listVal", listVal)
-        setList([...list, listVal])
-        }
-        setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
-    }
-   
+    //     let data = await addDoc(useCollectionRef, listVal)
+    //     console.log("data", data)
+    //     if (listVal.mobile) {
+    //         console.log("listVal", listVal)
+    //         setList([...list, listVal])
+    //     }
+    //     setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+     }
+
     return (
         <React.Fragment>
             <section className='add-contact p-3'>
@@ -35,13 +35,13 @@ const Addcontact = () => {
                         <div className='col-md-4'>
                             <form>
                                 <div className='mb-2'>
-                                    <input type="text" value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} className='form-control fw-bold ' placeholder='Name'></input>
+                                    <input type="text" className='form-control fw-bold ' placeholder='Name'></input>
                                 </div>
-                                <div className='mb-2'>
+                                {/* <div className='mb-2'>
                                     <input type="text" value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} className='form-control fw-bold' placeholder='Photo Url'></input>
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="number" value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} className='form-control fw-bold' placeholder='Mobile'></input>
+                                    <input type="text" value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} className='form-control fw-bold' placeholder='Mobile'></input>
                                 </div>
                                 <div className='mb-2'>
                                     <input type="text" value={listVal.email} onChange={((e) => setListVal({ ...listVal, email: e.target.value }))} className='form-control fw-bold' placeholder='Email'></input>
@@ -51,7 +51,7 @@ const Addcontact = () => {
                                 </div>
                                 <div className='mb-2'>
                                     <input type="text" value={listVal.title} onChange={((e) => setListVal({ ...listVal, title: e.target.value }))} className='form-control fw-bold' placeholder='Title'></input>
-                                </div>
+                                </div> */}
                                 <div>
                                 </div>
                                 <div className='mb-2'>

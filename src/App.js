@@ -19,7 +19,7 @@ let App=()=> {
         <Route path={'/contacts/list'} element={<ContactList/>}/>
         <Route path={'/contacts/add'} element={<Addcontact/>}/>
         <Route path={'/contacts/list/view'} element={<ViewContact/>}/>
-        <Route path={'/contacts/edit/:contactId'} element={<EditContact/>}/>
+        {/* <Route path={'/contacts/edit/:contactId'} element={<EditContact/>}/> */}
       </Routes>
       </ContactProvider>
 

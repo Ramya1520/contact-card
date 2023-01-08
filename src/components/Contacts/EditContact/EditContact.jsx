@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
-import { updateDoc } from 'firebase/firestore';
-import { collection, doc, deleteDoc, addDoc, getDocs } from 'firebase/firestore';
+
+import { collection, doc, deleteDoc, addDoc} from 'firebase/firestore';
 
 
 import { db } from '../../../firebase';
@@ -44,13 +44,13 @@ let EditContact = () => {
                                     <input type="text" value={updateState.name} onChange={((e) => setUpdateState({ ...updateState, name: e.target.value }))} className='form-control' placeholder='Name' />
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="text" value={updateState.photourl} onChange={((e) => setUpdateState({ ...updateState, photourl: e.target.value }))} className='form-control' placeholder='Photo Url'></input>
+                                    <input type="url" value={updateState.photourl} onChange={((e) => setUpdateState({ ...updateState, photourl: e.target.value }))} className='form-control' placeholder='Photo Url'></input>
                                 </div>
                                 <div className='mb-2'>
                                     <input type="number" value={updateState.mobile} onChange={((e) => setUpdateState({ ...updateState, mobile: e.target.value }))} className='form-control' placeholder='Mobile'></input>
                                 </div>
                                 <div className='mb-2'>
-                                    <input type="text" value={updateState.email} onChange={((e) => setUpdateState({ ...updateState, email: e.target.value }))} className='form-control' placeholder='Email'></input>
+                                    <input type="email" value={updateState.email} onChange={((e) => setUpdateState({ ...updateState, email: e.target.value }))} className='form-control' placeholder='Email'></input>
                                 </div>
                                 <div className='mb-2'>
                                     <input type="text" value={updateState.company} onChange={((e) => setUpdateState({ ...updateState, company: e.target.value }))} className='form-control' placeholder='Company'></input>
