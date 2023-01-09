@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link, } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../context/ContactContext';
 import { collection, doc, deleteDoc, onSnapshot, addDoc } from 'firebase/firestore';
@@ -12,7 +11,8 @@ const ContactList = () => {
         handleSubmit,
         formState: { errors },
       } = useForm();
-    
+      
+     console.log(errors)
     const contact = useContext(ContactContext)
     const { list, setList } = useContext(ContactContext)
     const { updateState, setUpdateState } = useContext(ContactContext)
@@ -27,7 +27,7 @@ const ContactList = () => {
     }
 
     const Update = async () => {
-        if (updateState.mobile) {
+        if (updateState.name && updateState.mobile && updateState.email) {
             await addDoc(useCollectionRef, updateState);
 
         }
@@ -35,13 +35,15 @@ const ContactList = () => {
         Delete(updateState.id)
     }
     let Add = async () => {
+        if (listVal.mobile && listVal.name && listVal.email) {
         let data = await addDoc(useCollectionRef, listVal)
         console.log("data", data)
-        // if (listVal.mobile) {
+       
         console.log("listVal", listVal)
-        // setList([...list, listVal])
-        // }
+        
         setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+        // setList([...list, listVal])
+        }
     }
 
 
@@ -71,13 +73,6 @@ const ContactList = () => {
         console.log("after===========", searchbar)
         setSearchbar(filteredNames)
     }
-    const onSubmit =(data)=>{
-        
-        console.log(data);
-    }
-
-// console.log(errors)
-
     return (
         <React.Fragment>
 
@@ -103,40 +98,44 @@ const ContactList = () => {
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div className="modal-body">
-                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                        <form onSubmit={handleSubmit((data)=> {
+                                            console.log(data)
+                                        })}>
                                             <div class="row my-3">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Name" name="name" value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} {...register("listval.name",{required:true})} />
-                                                   <error>
-                                                    {/* {errors.listval.name?.type === "required" & "Name is required"} */}
-                                                  
-                                                   </error>
+                                                    <input type="text" className="form-control" placeholder="Name" name="name" {...register('name',{required:"*This field is required"})} value={listVal.name}  onChange={((e) => setListVal({ ...listVal, name: e.target.value }))}  />
+                                                    {errors?.name && <p className='text-danger'> {errors?.name.message} </p>}
                                                 </div>
                                          <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Photo Url" name="photourl" value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} />
+                                                   
+                                                    <input type="text" className="form-control" placeholder="Photo Url" name="photourl"   value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} />
+                                           
                                                 </div>
                                             </div>
                                             <div class="row my-3">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Mobile" name="mobile"  value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} />
+                                                    <input type="tel" id="phone"  maxLength="10" minLength="9" className="form-control" placeholder="Mobile" name="mobile" {...register('mobile',{required:"*This field is required"})} value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} />
+                                                    {errors?.mobile && <p className='text-danger'> {errors?.mobile.message} </p>}
                                                 </div>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Email" name="email"  value={listVal.email} onChange={((e) => setListVal({ ...listVal, email: e.target.value }))} />
+                                                    <input type="email" className="form-control" placeholder="Email" name="email" {...register('email',{required:"*This field is required"})}  value={listVal.email} onChange={((e) => setListVal({ ...listVal, email: e.target.value }))} />
+                                                    {errors?.email && <p className='text-danger'> {errors?.email.message} </p>}
                                                 </div>
                                             </div>
                                             <div class="row my-3">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Company" name="company" value={listVal.company} onChange={((e) => setListVal({ ...listVal, company: e.target.value }))} />
+                                                    <input type="text" className="form-control" placeholder="Company" name="company" value={listVal.company} onChange={((e) => setListVal({ ...listVal, company: e.target.value }))} />
                                                 </div>
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Title" name="title" value={listVal.title} onChange={((e) => setListVal({ ...listVal, title: e.target.value }))} />
+                                                    <input type="text" className="form-control" placeholder="Title" name="title" value={listVal.title} onChange={((e) => setListVal({ ...listVal, title: e.target.value }))} />
                                                 </div>
                                             </div>
+                                            <div className="modal-footer">
+                                        <button type="text" className="btn btn-primary" onClick={() => { Add(listVal) }}>Save</button>
+                                    </div>
                                         </form>
                                     </div>
-                                    <div className="modal-footer">
-                                        <button type="submit" className="btn btn-primary" onClick={() => { Add(listVal) }}>Save</button>
-                                    </div>
+                                 
                                 </div>
                             </div>
                         </div>
@@ -149,10 +148,12 @@ const ContactList = () => {
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div className="modal-body">
-                                        <form>
+                                        <form onSubmit={handleSubmit((data)=> {
+                                            console.log(data)
+                                        })}>
                                             <div class="row my-3">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Name" value={updateState.name} onChange={((e) => setUpdateState({ ...updateState, name: e.target.value }))} />
+                                                    <input type="text" class="form-control" placeholder="Name"  value={updateState.name}  onChange={((e) => setUpdateState({ ...updateState, name: e.target.value }))}  />
                                                 </div>
                                                 <div class="col">
                                                     <input type="text" class="form-control" placeholder="Photo Url" value={updateState.photourl} onChange={((e) => setUpdateState({ ...updateState, photourl: e.target.value }))} />
