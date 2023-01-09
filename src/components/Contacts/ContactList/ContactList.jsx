@@ -19,6 +19,7 @@ const ContactList = () => {
     const [searchbar, setSearchbar] = useState(contact.list)
     const useCollectionRef = collection(db, 'list');
     const { listVal, setListVal } = useContext(ContactContext)
+    // const [userInfo ,setUserInfo]=useState()
 
 
     const edit = (age, index) => {
@@ -71,10 +72,11 @@ const ContactList = () => {
         setSearchbar(filteredNames)
     }
     const onSubmit =(data)=>{
+        
         console.log(data);
     }
 
-
+// console.log(errors)
 
     return (
         <React.Fragment>
@@ -104,9 +106,13 @@ const ContactList = () => {
                                         <form onSubmit={handleSubmit(onSubmit)}>
                                             <div class="row my-3">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Name" name="name" value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} />
+                                                    <input type="text" class="form-control" placeholder="Name" name="name" value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} {...register("listval.name",{required:true})} />
+                                                   <error>
+                                                    {/* {errors.listval.name?.type === "required" & "Name is required"} */}
+                                                  
+                                                   </error>
                                                 </div>
-                                                <div class="col">
+                                         <div class="col">
                                                     <input type="text" class="form-control" placeholder="Photo Url" name="photourl" value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} />
                                                 </div>
                                             </div>
@@ -129,7 +135,7 @@ const ContactList = () => {
                                         </form>
                                     </div>
                                     <div className="modal-footer">
-                                        <button type="button" className="btn btn-primary" onClick={() => { Add(listVal) }}>Save</button>
+                                        <button type="submit" className="btn btn-primary" onClick={() => { Add(listVal) }}>Save</button>
                                     </div>
                                 </div>
                             </div>
