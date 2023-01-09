@@ -10,17 +10,15 @@ const ContactList = () => {
         register,
         handleSubmit,
         formState: { errors },
-      } = useForm();
-      
-     console.log(errors)
+    } = useForm();
+
+    console.log(errors)
     const contact = useContext(ContactContext)
     const { list, setList } = useContext(ContactContext)
     const { updateState, setUpdateState } = useContext(ContactContext)
     const [searchbar, setSearchbar] = useState(contact.list)
     const useCollectionRef = collection(db, 'list');
     const { listVal, setListVal } = useContext(ContactContext)
-    // const [userInfo ,setUserInfo]=useState()
-
 
     const edit = (age, index) => {
         setUpdateState(contact.list[index])
@@ -29,25 +27,22 @@ const ContactList = () => {
     const Update = async () => {
         if (updateState.name && updateState.mobile && updateState.email) {
             await addDoc(useCollectionRef, updateState);
-
         }
         setUpdateState({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
         Delete(updateState.id)
     }
+
     let Add = async () => {
         if (listVal.mobile && listVal.name && listVal.email) {
-        let data = await addDoc(useCollectionRef, listVal)
-        console.log("data", data)
-       
-        console.log("listVal", listVal)
-        
-        setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
-        // setList([...list, listVal])
+            let data = await addDoc(useCollectionRef, listVal)
+            console.log("data", data)
+            console.log("listVal", listVal)
+            setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
         }
+        setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
     }
 
-
-    const View = (age, index) => {
+    const View = (element, index) => {
         setUpdateState(contact.list[index])
     }
 
@@ -89,7 +84,7 @@ const ContactList = () => {
                             </div>
                         </div>
 
-{/* New contact */}
+                        {/* New contact */}
                         <div className="modal fade" id="staticBackdropnew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">
@@ -98,27 +93,27 @@ const ContactList = () => {
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div className="modal-body">
-                                        <form onSubmit={handleSubmit((data)=> {
+                                        <form onSubmit={handleSubmit((data) => {
                                             console.log(data)
                                         })}>
                                             <div class="row my-3">
                                                 <div class="col">
-                                                    <input type="text" className="form-control" placeholder="Name" name="name" {...register('name',{required:"*This field is required"})} value={listVal.name}  onChange={((e) => setListVal({ ...listVal, name: e.target.value }))}  />
+                                                    <input type="text" className="form-control" placeholder="Name" name="name" {...register('name', { required: "*This field is required" })} value={listVal.name} onChange={((e) => setListVal({ ...listVal, name: e.target.value }))} />
                                                     {errors?.name && <p className='text-danger'> {errors?.name.message} </p>}
                                                 </div>
-                                         <div class="col">
-                                                   
-                                                    <input type="text" className="form-control" placeholder="Photo Url" name="photourl"   value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} />
-                                           
+                                                <div class="col">
+
+                                                    <input type="text" className="form-control" placeholder="Photo Url" name="photourl" value={listVal.photourl} onChange={((e) => setListVal({ ...listVal, photourl: e.target.value }))} />
+
                                                 </div>
                                             </div>
                                             <div class="row my-3">
                                                 <div class="col">
-                                                    <input type="tel" id="phone"  maxLength="10" minLength="9" className="form-control" placeholder="Mobile" name="mobile" {...register('mobile',{required:"*This field is required"})} value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} />
+                                                    <input type="tel" id="phone" maxLength="10" minLength="9" className="form-control" placeholder="Mobile" name="mobile" {...register('mobile', { required: "*This field is required" })} value={listVal.mobile} onChange={((e) => setListVal({ ...listVal, mobile: e.target.value }))} />
                                                     {errors?.mobile && <p className='text-danger'> {errors?.mobile.message} </p>}
                                                 </div>
                                                 <div class="col">
-                                                    <input type="email" className="form-control" placeholder="Email" name="email" {...register('email',{required:"*This field is required"})}  value={listVal.email} onChange={((e) => setListVal({ ...listVal, email: e.target.value }))} />
+                                                    <input type="email" className="form-control" placeholder="Email" name="email" {...register('email', { required: "*This field is required" })} value={listVal.email} onChange={((e) => setListVal({ ...listVal, email: e.target.value }))} />
                                                     {errors?.email && <p className='text-danger'> {errors?.email.message} </p>}
                                                 </div>
                                             </div>
@@ -131,15 +126,15 @@ const ContactList = () => {
                                                 </div>
                                             </div>
                                             <div className="modal-footer">
-                                        <button type="text" className="btn btn-primary" onClick={() => { Add(listVal) }}>Save</button>
-                                    </div>
+                                                <button type="text" className="btn btn-primary" onClick={() => { Add(listVal) }}>Save</button>
+                                            </div>
                                         </form>
                                     </div>
-                                 
+
                                 </div>
                             </div>
                         </div>
-{/* //Edit page */}
+                        {/* //Edit page */}
                         <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">
@@ -148,12 +143,12 @@ const ContactList = () => {
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div className="modal-body">
-                                        <form onSubmit={handleSubmit((data)=> {
+                                        <form onSubmit={handleSubmit((data) => {
                                             console.log(data)
                                         })}>
                                             <div class="row my-3">
                                                 <div class="col">
-                                                    <input type="text" class="form-control" placeholder="Name"  value={updateState.name}  onChange={((e) => setUpdateState({ ...updateState, name: e.target.value }))}  />
+                                                    <input type="text" class="form-control" placeholder="Name" value={updateState.name} onChange={((e) => setUpdateState({ ...updateState, name: e.target.value }))} />
                                                 </div>
                                                 <div class="col">
                                                     <input type="text" class="form-control" placeholder="Photo Url" value={updateState.photourl} onChange={((e) => setUpdateState({ ...updateState, photourl: e.target.value }))} />
@@ -183,7 +178,7 @@ const ContactList = () => {
                                 </div>
                             </div>
                         </div>
-{/* //view page */}
+                        {/* //view page */}
                         <div className="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">
@@ -262,7 +257,7 @@ const ContactList = () => {
                                                                         <li className='list-group-item listgroup-item-action fw-bolder'>
                                                                             Name:<span className='fw-light'>{element.name}</span>
                                                                         </li>
-                                                                
+
                                                                         <li className='list-group-item listgroup-item-action fw-bolder'>
                                                                             Mobile:<span className='fw-light'>{element.mobile}</span>
                                                                         </li>
