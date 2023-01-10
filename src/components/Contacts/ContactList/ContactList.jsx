@@ -29,7 +29,8 @@ const ContactList = () => {
             await addDoc(useCollectionRef, updateState);
             Delete(updateState.id)
             setUpdateState({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
-        } 
+        }
+ 
     }
 
     let Add = async () => {
@@ -39,6 +40,7 @@ const ContactList = () => {
             console.log("listVal", listVal)
             setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
         }
+
     }
 
     const View = (element, index) => {
