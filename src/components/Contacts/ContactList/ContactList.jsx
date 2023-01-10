@@ -30,7 +30,6 @@ const ContactList = () => {
             Delete(updateState.id)
             setUpdateState({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
         }
- 
     }
 
     let Add = async () => {
