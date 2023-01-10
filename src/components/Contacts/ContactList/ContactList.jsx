@@ -28,8 +28,8 @@ const ContactList = () => {
         if (updateState.name && updateState.mobile && updateState.email) {
             await addDoc(useCollectionRef, updateState);
             Delete(updateState.id)
-        }
-        setUpdateState({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+            setUpdateState({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+        } 
     }
 
     let Add = async () => {
@@ -39,7 +39,6 @@ const ContactList = () => {
             console.log("listVal", listVal)
             setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
         }
-        setListVal({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
     }
 
     const View = (element, index) => {
@@ -47,9 +46,11 @@ const ContactList = () => {
     }
 
     const Delete = async (listId) => {
+        if (listVal.mobile && listVal.name && listVal.email) {
         const listDoc = doc(db, 'list', listId)
         await deleteDoc(listDoc)
     }
+}
 
     useEffect(() => {
         const snapShot = onSnapshot(useCollectionRef, (snapShotParam => {
@@ -83,8 +84,7 @@ const ContactList = () => {
                                 </p>
                             </div>
                         </div>
-
-                        {/* New contact */}
+{/* New contact */}
                         <div className="modal fade" id="staticBackdropnew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">
@@ -134,7 +134,7 @@ const ContactList = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* //Edit page */}
+    {/* //Edit page */}
                         <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">
@@ -178,7 +178,7 @@ const ContactList = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* //view page */}
+    {/* //view page */}
                         <div className="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">

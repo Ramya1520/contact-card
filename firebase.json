@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "contact-manager-6752d",
+ 
     "public": "build",
     "ignore": [
       "firebase.json",
