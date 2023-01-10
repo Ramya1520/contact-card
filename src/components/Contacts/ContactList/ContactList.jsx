@@ -27,9 +27,9 @@ const ContactList = () => {
     const Update = async () => {
         if (updateState.name && updateState.mobile && updateState.email) {
             await addDoc(useCollectionRef, updateState);
+            setUpdateState({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
+            Delete(updateState.id)
         }
-        setUpdateState({ name: "", mobile: "", photourl: "", email: "", company: "", title: "" })
-        Delete(updateState.id)
     }
 
     let Add = async () => {
